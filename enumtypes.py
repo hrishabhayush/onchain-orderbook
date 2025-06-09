@@ -5,8 +5,11 @@ class OrderType(Enum):
     FillAndKill = 1
 
 class Side(Enum):
-    Buy = 0
-    Sell = 1
+    '''
+    
+    '''
+    BUY = 0
+    SELL = 1
 
 class Order(object):
         '''
@@ -76,14 +79,60 @@ class OrderModify(object):
     
     def getQuantity(self):
         return self._quantity
+
+class TradeInfo(object):
+    def __init__(self, orderId, price, quantity):
+        self._orderId = orderId 
+        self._price = price
+        self._quantity = quantity
+
+
+class Trade(object):
+    '''
+    Information about the trade
+    '''
+    def __init__(self, bidTrade: TradeInfo, askTrade: TradeInfo):
+        self._bidTrade = bidTrade
+        self._askTrade = askTrade
+
+    def getBidTrade(self):
+        return self._bidTrade
     
+    def getAskTrade(self):
+        return self._askTrade
 
 
+class LevelInfo(object):
+        '''
+        Contains the information where the orderbook is at right now. 
+        '''
+
+        def __init__(self, quantity, price, bids, asks):
+            '''
+            Write the documentation for the levelInfo
+            '''
+            # We need some sort of tracker to track all the bids, asks, so the orderbook can start empty
+            self._bids = bids
+            self._asks = asks
+            self._quantity = quantity
+            self._price = price  
+
+        def orderBookLevelInfo(self, quantity, price, side: Side):
+            self._quantity = quantity
+            self._price = price
+            self._side = side
+
+        def getBids(self):
+            return self._bids
+        
+        def getAsks(self):
+            return self._asks
+        
+class OrderEntry(object):
     
+    def __init__(self, order, time):
+        self._order = order
+        self._time = time
+        
 
-
-    
-
-
-
-
+        
